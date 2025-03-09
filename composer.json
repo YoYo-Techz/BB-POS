@@ -11,9 +11,11 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "owen-it/laravel-auditing": "^13.6",
+        "power-components/livewire-powergrid": "^5.10",
         "spatie/laravel-permission": "^6.9"
     },
     "require-dev": {
+        "composer/composer": "^2.7",
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",

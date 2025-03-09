@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
         foreach ($menus as $menu) {
             DB::table('f_menus')->insert([
                 'name'         => $menu,
-                'img'          => 'https: //images.deliveryhero.io/image/fd-mm/LH/o23f-listing.jpg', // Placeholder Image
+                'img'          => 'https://images.deliveryhero.io/image/fd-mm/LH/o23f-listing.jpg', // Placeholder Image
                 'description'  => 'Delicious traditional food',
                 'category_id'  => rand(1, 10),       // Random category
                 'allergies_id' => rand(1, 5),        // Random allergy
