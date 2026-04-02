@@ -5,23 +5,19 @@ use App\Models\FMenu;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
+use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Number;
-use Livewire\Attributes\On;
-use PowerComponents\LivewirePowerGrid\Facades\Filter;
-use PowerComponents\LivewirePowerGrid\Facades\Rule;
 
 final class FMenuTable extends PowerGridComponent
 {
     use WithExport;
+
+    public bool $deferLoading = true;
 
     public function setUp(): array
     {
@@ -33,7 +29,7 @@ final class FMenuTable extends PowerGridComponent
             //     ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             // Responsive::make(),
 
-            Header::make()->showSearchInput(),
+            // Header::make()->showSearchInput(),
 
             Footer::make()
                 ->showPerPage()
@@ -74,16 +70,22 @@ final class FMenuTable extends PowerGridComponent
             Column::make('Image', 'img'),
             Column::make('Name', 'name')->sortable()
                 ->searchable(),
+
             Column::make('Category', 'category_name')
                 ->sortable(),
+
             Column::add()
                 ->title('Price')
                 ->field('price')
+                ->bodyAttribute('text-center', 'color:green')
+                ->headerAttribute('text-center', 'color:green')
                 ->sortable(),
+
             Column::add()
                 ->title('Is Special')
                 ->field('is_special')
                 ->toggleable($hasPermission = false)
+
                 ->sortable(),
             Column::make('Created at', 'created_at')
                 ->sortable()
@@ -124,10 +126,10 @@ final class FMenuTable extends PowerGridComponent
 
     public function actionRules($row): array
     {
-       return [
+        return [
             // Hide button edit for ID 1
-           Rule::rows()
-                ->when(fn ($fmenu) => $fmenu->is_special == false)
+            Rule::rows()
+                ->when(fn($fmenu) => $fmenu->is_special == false)
                 ->setAttribute('class', 'bg-red-50 hover:bg-red-100'),
         ];
     }
